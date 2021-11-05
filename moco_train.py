@@ -16,7 +16,32 @@ from pathlib import Path
 from typing import Tuple
 #from loss_info import load_model
 
-
+"""
+max_epochs: number of epochs to train
+q_size: queue size
+contrastive_momentum: the contrastive momentum used
+temperature: temperature used
+lr: learning rate
+SGD_momentum: momentum for sgd optimizer
+weight_decay: weight decay for optimizer
+batch_size: training batch_size
+training_augmentations: the augmentations used. can be moco_v1, moco_v2 (the augmentations used for first and second 
+moco respectively). Can also be imagenet_validation as the augmentations used for validation.
+knn_test_freq: The frequency of performing a knn test during training. each knn_test_freq epochs a knn test will start, 
+this test can give an indication on the quality of the current embeddings of the model.
+k: k used for the knn test.
+gamma: gamma used for focal loss.
+filter_logits_starting_epoch: the epoch to start filtering from (e.g., if the current training epoch is bigger than 
+filter_logits_starting_epoch filtering will be applied).
+clustered_logits_starting_epoch: the epoch to start clustering from (e.g., if the current training epoch is bigger than 
+clustered_logits_starting_epoch clustering will be applied).
+update_centroids_freq: the frequency of updating the centroids of the queue for filtering / clustering
+num_centroids: number of centroids to use for filtering / clustering
+k_means_mini_batches: if filtering is too time consuming you can use a smaller batch of the queue. otherwise, set to 
+None (if the queue is relatively small <= 2 ** 15 just set it to None).
+pretrained: load a pretrained backbone from a previous run (see line 185).
+num_workers: number of worker in the dataloader
+"""
 _HYPER_PARAMS = {'max_epochs': 1250,
                  'q_size': int(2 ** 12),
                  'contrast_momentum': 0.999,
@@ -34,19 +59,9 @@ _HYPER_PARAMS = {'max_epochs': 1250,
                  'update_centroids_freq': 1,
                  'num_centroids': 20,
                  'k_means_mini_batches': None,
-                 'pretrained' : True,
-                 'num_workers' : 7,
+                 'pretrained': True,
+                 'num_workers': 7,
                  }
-
-
-# class LoadedModel(nn.Module):
-#     def __init__(self):
-#         super(LoadedModel, self).__init__()
-#         self.loaded_model = load_model('./facebook_moco_checkpoints/moco_v2_800ep_pretrain.pth')
-
-#     def forward(self, x):
-#         out = self.loaded_model(x)
-#         return out, out
 
 
 class Model(nn.Module):

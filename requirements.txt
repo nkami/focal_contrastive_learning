@@ -1,0 +1,6 @@
+torchvision~=0.7.0
+matplotlib~=3.2.1
+numpy~=1.19.1
+pathlib~=1.0.1
+tqdm~=4.49.0
+pillow~=8.0.1
