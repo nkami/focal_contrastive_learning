@@ -37,7 +37,7 @@ The results presented here are for different backbones trained differently (with
 with/without focal loss). In the following table you can see the accuracies of the linear classifier trained on the 
 embeddings of these different backbones:
 
-![results_table](results_table.png "results")
+![results_table](results_table.PNG "results")
 
 We can see an improvement in performance for backbones that were trained with filtering and focal loss.
 For additional results you should look at Focal_loss_for_contrastive_learning.pdf.
